@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在港船數列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Noto Sans TC", sans-serif;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img,
+        iframe {
+            vertical-align: bottom;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            list-style-type: none;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+        input {
+            outline: none;
+        }
+
+        input[type=date] {
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
+        select,
+        input {
+            padding: 4px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            min-height: 1.2em;
+            background-color: #fff;
+            color: #333;
+        }
+
+        iframe {
+            border: none;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .flex-tool {
+            display: flex;
+        }
+
+        .flex1 {
+            flex: 1;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .bg-orange {
+            background-color: orange;
+        }
+        .bg-gray{
+            background-color: #f1f1f1;
+        }
+        .table-title-style {
+            color: #0086D1;
+            font-size: 32px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+
+    </style>
+    <section style="max-width: 1366px;
+    min-height: 80vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff">
+        <h2 class="table-title-style">第一類漁港 在港船數 </h2>
+        <div class="">
+            <ul id="first-type-ports">
+                <li class="flex-tool">
+                    <div class="flex1 text-center">縣市</div>
+                    <div class="flex1 text-center">漁港</div>
+                    <div class="flex1 text-center">
+                        可容許停泊船數
+                    </div>
+                    <div class="flex1 text-center bg-gray">
+                        2024/9/26午
+                    </div>
+                    <div class="flex1 text-center bg-orange">今日零時數量</div>
+                    <div class="flex1 text-center bg-orange">
+                        今日零時停泊率
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <h2 class="table-title-style">第二類漁港 在港船數</h2>
+        <div>
+            <ul id="second-type-ports">
+                <li class="flex-tool">
+                    <div class="flex1 text-center">縣市</div>
+                    <div class="flex1 text-center">漁港</div>
+                    <div class="flex1 text-center">
+                        可容許停泊船數
+                    </div>
+                    <div class="flex1 text-center bg-gray">
+                        2024/9/26午
+                    </div>
+                    <div class="flex1 text-center bg-orange">今日零時數量</div>
+                    <div class="flex1 text-center bg-orange">
+                        今日零時停泊率
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script>
+        const fishingPorts = [
+            { id: 1, city: '臺南市', name: '安平', type: '第一類', shipCount: 829, coulddock: 819, shipCount926: 807 },
+            { id: 2, city: '屏東縣', name: '東港鹽埔', type: '第一類', shipCount: 616, coulddock: 1088, shipCount926: 548 },
+            { id: 3, city: '新竹市', name: '新竹', type: '第一類', shipCount: 308, coulddock: 458, shipCount926: 339 },
+            { id: 4, city: '宜蘭縣', name: '南方澳', type: '第一類', shipCount: 574, coulddock: 970, shipCount926: 338 },
+            { id: 5, city: '基隆市', name: '八斗子', type: '第一類', shipCount: 342, coulddock: 335, shipCount926: 251 },
+            { id: 6, city: '臺中市', name: '梧棲', type: '第一類', shipCount: 382, coulddock: 297, shipCount926: 240 },
+            { id: 7, city: '宜蘭縣', name: '烏石', type: '第一類', shipCount: 193, coulddock: 285, shipCount926: 176 },
+            { id: 8, city: '基隆市', name: '正濱', type: '第一類', shipCount: 188, coulddock: 97, shipCount926: 118 },
+            { id: 9, city: '高雄市', name: '前鎮', type: '第一類', shipCount: 94, coulddock: 135, shipCount926: 91 },
+            { id: 10, city: '嘉義縣', name: '布袋', type: '第二類', shipCount: 1121, coulddock: "", shipCount926: 1098 },
+            { id: 11, city: '高雄市', name: '蚵子寮', type: '第二類', shipCount: 385, coulddock: 388, shipCount926: 366 },
+            { id: 12, city: '桃園市', name: '竹圍', type: '第二類', shipCount: 351, coulddock: 420, shipCount926: 342 },
+            { id: 13, city: '嘉義縣', name: '東石', type: '第二類', shipCount: 352, coulddock: "", shipCount926: 341 },
+            { id: 14, city: '雲林縣', name: '台子村', type: '第二類', shipCount: 308, coulddock: 323, shipCount926: 320 },
+            { id: 15, city: '彰化縣', name: '崙尾灣', type: '第二類', shipCount: 254, coulddock: 150, shipCount926: 247 },
+            { id: 16, city: '花蓮縣', name: '花蓮', type: '第二類', shipCount: 248, coulddock: 246, shipCount926: 233 },
+            { id: 17, city: '桃園市', name: '永安', type: '第二類', shipCount: 219, coulddock: 355, shipCount926: 218 },
+            { id: 18, city: '高雄市', name: '興達', type: '第二類', shipCount: 238, coulddock: 920, shipCount926: 213 },
+            { id: 19, city: '高雄市', name: '彌陀', type: '第二類', shipCount: 228, coulddock: 183, shipCount926: 212 },
+            { id: 20, city: '高雄市', name: '中芸', type: '第二類', shipCount: 264, coulddock: 238, shipCount926: 207 },
+            { id: 21, city: '澎湖縣', name: '馬公', type: '第二類', shipCount: 229, coulddock: "", shipCount926: 158 },
+            { id: 22, city: '臺東縣', name: '新港', type: '第二類', shipCount: 190, coulddock: "", shipCount926: 153 },
+            { id: 23, city: '高雄市', name: '旗津', type: '第二類', shipCount: 146, coulddock: 252, shipCount926: 139 },
+            { id: 24, city: '高雄市', name: '小港臨海新村', type: '第二類', shipCount: 143, coulddock: 199, shipCount926: 138 },
+            { id: 25, city: '新北市', name: '澳底', type: '第二類', shipCount: 135, coulddock: "", shipCount926: 120 },
+            { id: 26, city: '新北市', name: '磺港', type: '第二類', shipCount: 143, coulddock: "", shipCount926: 112 },
+            { id: 27, city: '臺東縣', name: '伽藍', type: '第二類', shipCount: 120, coulddock: 125, shipCount926: 108 },
+            { id: 28, city: '新北市', name: '萬里', type: '第二類', shipCount: 101, coulddock: "", shipCount926: 90 },
+            { id: 29, city: '臺南市', name: '將軍', type: '第二類', shipCount: 98, coulddock: "", shipCount926: 87 },
+            { id: 30, city: '臺東縣', name: '綠島', type: '第二類', shipCount: 93, coulddock: "", shipCount926: 85 },
+            { id: 31, city: '苗栗縣', name: '龍鳳', type: '第二類', shipCount: 87, coulddock: 104, shipCount926: 82 },
+            { id: 32, city: '苗栗縣', name: '苑港', type: '第二類', shipCount: 69, coulddock: 74, shipCount926: 71 },
+            { id: 33, city: '新北市', name: '龜吼', type: '第二類', shipCount: 66, coulddock: "", shipCount926: 62 },
+            { id: 34, city: '新北市', name: '野柳', type: '第二類', shipCount: 104, coulddock: "", shipCount926: 61 },
+            { id: 35, city: '基隆市', name: '望海巷', type: '第二類', shipCount: 45, coulddock: 43, shipCount926: 47 },
+            { id: 36, city: '宜蘭縣', name: '大溪', type: '第二類', shipCount: 94, coulddock: 156, shipCount926: 47 },
+            { id: 37, city: '高雄市', name: '旗后', type: '第二類', shipCount: 43, coulddock: 92, shipCount926: 45 },
+            { id: 38, city: '基隆市', name: '長潭里', type: '第二類', shipCount: 35, coulddock: 47, shipCount926: 31 },
+            { id: 39, city: '新北市', name: '富基', type: '第二類', shipCount: 60, coulddock: "", shipCount926: 31 },
+            { id: 40, city: '高雄市', name: '汕尾', type: '第二類', shipCount: 31, coulddock: 128, shipCount926: 31 },
+        ];
+        const northToSouthOrder = [
+            '基隆市', '新北市', '臺北市', '桃園市', '新竹市', '苗栗縣',
+            '臺中市', '彰化縣', '雲林縣', '嘉義縣', '臺南市', '高雄市',
+            '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'
+        ];
+
+        // Step 1: Sort by city and then by shipCount in descending order
+        const sortedByCity = fishingPorts.reduce((groupedPorts, port) => {
+            // 分組，將相同城市的漁港放在一起
+            if (!groupedPorts[port.city]) {
+                groupedPorts[port.city] = [];
+            }
+            groupedPorts[port.city].push(port);
+            return groupedPorts;
+        }, {});
+
+        // Step 2: 將每個城市內的漁港依照 shipCount 排序（從多到少）
+        Object.keys(sortedByCity).forEach(city => {
+            sortedByCity[city].sort((a, b) => b.shipCount - a.shipCount);
+        });
+
+        // Step 3: 將城市按地理位置從北到南排序
+        const finalSortedPorts = [];
+        northToSouthOrder.forEach(city => {
+            if (sortedByCity[city]) {
+                // 按順序將每個城市的漁港數據加入最終結果
+                finalSortedPorts.push(...sortedByCity[city]);
+            }
+        });
+
+        // Console log or use finalSortedPorts for further processing
+        console.log(finalSortedPorts);
+
+        function renderFishingPorts() {
+            const firstTypeList = document.getElementById('first-type-ports');
+            const secondTypeList = document.getElementById('second-type-ports');
+
+            finalSortedPorts.forEach(port => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('flex-tool', 'port_ship_num2_data_info', 'alt-tool');
+                let dockRatio = port.coulddock ? (port.shipCount / port.coulddock).toFixed(2) + "%" : '';  // 計算比率，當 coulddock 是 0 時不顯示
+                // 縣市 漁港 可容許停泊船數 2024/9/26午間在港船數 今日零時在港漁船數量 今日零時停泊使用率
+                listItem.innerHTML = `
+            <div class="flex1  text-center">${port.city}</div>
+            <div class="flex1  text-center">${port.name}</div>
+            <div class="flex1  text-center">${port.coulddock}</div>
+            <div class="flex1  text-center bg-gray">${port.shipCount926}</div>
+            <div class="flex1  text-center bg-orange">${port.shipCount}</div>
+            <div class="flex1  text-center bg-orange">${dockRatio}</div>
+        `;
+
+                if (port.type === '第一類') {
+                    firstTypeList.appendChild(listItem);
+                } else {
+                    secondTypeList.appendChild(listItem);
+                }
+            });
+
+        }
+
+        // 生成漁港列表
+        renderFishingPorts();
+    </script>
+
+
+</body>
+
+</html>
