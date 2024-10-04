@@ -18,128 +18,153 @@
             background-color: #fff;
         }
 
-        a {
-            text-decoration: none;
-        }
-
-        img,
-        iframe {
-            vertical-align: bottom;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        ul li {
-            list-style-type: none;
-        }
-
-        button {
-            border: none;
-            cursor: pointer;
-        }
-
-        input {
-            outline: none;
-        }
-
-        input[type=date] {
-            -webkit-appearance: textfield;
-            -moz-appearance: textfield;
-        }
-
-        select,
-        input {
-            padding: 4px;
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
             border: 1px solid #333;
-            border-radius: 5px;
-            min-height: 1.2em;
-            background-color: #fff;
-            color: #333;
+            table-layout: fixed;
         }
 
-        iframe {
-            border: none;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        .flex-tool {
-            display: flex;
-        }
-
-        .flex1 {
-            flex: 1;
-        }
-
-        .text-center {
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 4px;
             text-align: center;
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        /* Sticky Header */
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f1f1f1;
+            z-index: 10;
+            /* To ensure the header stays above the other rows */
+        }
+
+        /* Sticky First Column */
+        tbody td:first-child,
+        thead th:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #fff;
+            z-index: 5;
+            /* Ensure the first column stays above other cells */
+        }
+
+        /* To give first column more importance than other cells but below the header */
+        thead th:first-child {
+            z-index: 15;
         }
 
         .bg-orange {
             background-color: orange;
         }
-        .bg-gray{
+
+        .bg-gray {
             background-color: #f1f1f1;
         }
+
         .table-title-style {
             color: #0086D1;
             font-size: 32px;
             text-align: center;
+            margin: 20px 0;
+        }
+
+        /* For scrolling */
+        .table-container {
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        /* 按鈕樣式設計 */
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0086D1;
+            /* 主色 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            /* 懸停效果過渡 */
+        }
+
+        .custom-button:hover {
+            background-color: #0066a1;
+            /* 懸停時的背景色 */
+        }
+
+        .button-container {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            /* 按鈕之間的間距 */
+        }
+
+        /* 調整小螢幕上的間距 */
+        @media (max-width: 768px) {
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 
 <body>
-    <style>
-
-    </style>
-    <section style="max-width: 1366px;
-    min-height: 80vh;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff">
+    <a id="top"></a>
+    <section style="max-width: 1366px; min-height: 80vh; margin: auto; background-color: #fff">
         <h2 class="table-title-style">第一類漁港 在港船數 </h2>
-        <div class="">
-            <ul id="first-type-ports">
-                <li class="flex-tool">
-                    <div class="flex1 text-center">縣市</div>
-                    <div class="flex1 text-center">漁港</div>
-                    <div class="flex1 text-center">
-                        可容許停泊船數
-                    </div>
-                    <div class="flex1 text-center ">
-                        2024/9/26午
-                    </div>
-                    <div class="flex1 text-center ">今日零時數量</div>
-                    <div class="flex1 text-center ">
-                        今日零時停泊率
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <h2 class="table-title-style">第二類漁港 在港船數</h2>
-        <div>
-            <ul id="second-type-ports">
-                <li class="flex-tool">
-                    <div class="flex1 text-center">縣市</div>
-                    <div class="flex1 text-center">漁港</div>
-                    <div class="flex1 text-center">
-                        可容許停泊船數
-                    </div>
-                    <div class="flex1 text-center ">
-                        2024/9/26午
-                    </div>
-                    <div class="flex1 text-center ">今日零時數量</div>
-                    <div class="flex1 text-center ">
-                        今日零時停泊率
-                    </div>
-                </li>
-            </ul>
+        <span>今日零時總數量</span> <span id="total-first-type-ship-count"></span> <span>艘</span>
+        <table id="first-type-ports">
+            <thead>
+                <tr>
+                    <th>編號</th>
+                    <th>縣市</th>
+                    <th>漁港</th>
+                    <th>可容許停泊船數</th>
+                    <th>2024/9/26午</th>
+                    <th>今日零時數量</th>
+                    <th>今日零時停泊率</th>
+                    <th class="bg-orange">漁船增加</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2 class="table-title-style">第二類漁港 在港船數 </h2>
+        <span>今日零時總數量</span> <span id="total-second-type-ship-count"></span> <span>艘</span>
+        <table id="second-type-ports">
+            <thead>
+                <tr>
+                    <th>編號</th>
+                    <th>縣市</th>
+                    <th>漁港</th>
+                    <th>可容許停泊船數</th>
+                    <th>2024/9/26午</th>
+                    <th>今日零時數量</th>
+                    <th>今日零時停泊率</th>
+                    <th class="bg-orange">漁船增加</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="button-container">
+            <!-- 回到頂部按鈕 -->
+            <a href="#top" class="custom-button">回到頂部</a>
+
+            <!-- 回到首頁按鈕 -->
+            <a href="https://testu24.toff.best/php/" class="custom-button">回到首頁</a>
         </div>
     </section>
     <script>
@@ -186,9 +211,9 @@
             { id: 40, city: '高雄市', name: '汕尾', type: '第二類', shipCount: 31, coulddock: 128, shipCount926: 31 },
         ];
         const northToSouthOrder = [
-            '基隆市', '新北市', '臺北市', '桃園市', '新竹市', '苗栗縣',
+            '基隆市', '宜蘭縣', '新北市', '臺北市', '桃園市', '新竹市', '苗栗縣',
             '臺中市', '彰化縣', '雲林縣', '嘉義縣', '臺南市', '高雄市',
-            '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'
+            '屏東縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'
         ];
 
         // Step 1: Sort by city and then by shipCount in descending order
@@ -219,33 +244,42 @@
         console.log(finalSortedPorts);
 
         function renderFishingPorts() {
-            const firstTypeList = document.getElementById('first-type-ports');
-            const secondTypeList = document.getElementById('second-type-ports');
+            const firstTypeTableBody = document.querySelector('#first-type-ports tbody');
+            const secondTypeTableBody = document.querySelector('#second-type-ports tbody');
 
             finalSortedPorts.forEach(port => {
-                const listItem = document.createElement('li');
-                listItem.classList.add('flex-tool', 'port_ship_num2_data_info', 'alt-tool');
-                let dockRatio = port.coulddock ? (port.shipCount / port.coulddock).toFixed(2) + "%" : '';  // 計算比率，當 coulddock 是 0 時不顯示
-                // 縣市 漁港 可容許停泊船數 2024/9/26午間在港船數 今日零時在港漁船數量 今日零時停泊使用率
-                listItem.innerHTML = `
-            <div class="flex1  text-center">${port.city}</div>
-            <div class="flex1  text-center">${port.name}</div>
-            <div class="flex1  text-center">${port.coulddock}</div>
-            <div class="flex1  text-center bg-gray">${port.shipCount926}</div>
-            <div class="flex1  text-center bg-orange">${port.shipCount}</div>
-            <div class="flex1  text-center bg-orange">${dockRatio}</div>
-        `;
+                const row = document.createElement('tr');
+                let dockRatio = port.coulddock ? (port.shipCount * 100 / port.coulddock).toFixed(2) + "%" : '';  // 計算比率，當 coulddock 是 0 時不顯示
+                let Increase = port.shipCount - port.shipCount926;
+                row.innerHTML = `
+                  <td>${port.id}</td>
+                    <td>${port.city}</td>
+                    <td>${port.name}</td>
+                    <td>${port.coulddock}</td>
+                    <td>${port.shipCount926}</td>
+                    <td>${port.shipCount}</td>
+                    <td>${dockRatio}</td>
+                    <td>${Increase}</td>
+                `;
 
                 if (port.type === '第一類') {
-                    firstTypeList.appendChild(listItem);
+                    firstTypeTableBody.appendChild(row);
                 } else {
-                    secondTypeList.appendChild(listItem);
+                    secondTypeTableBody.appendChild(row);
                 }
             });
-
         }
+        function calculateTypeTotal() {
+            const firstTypePorts = fishingPorts.filter(port => port.type === '第一類');
+            const totalShipCount = firstTypePorts.reduce((total, port) => total + port.shipCount, 0);
+            document.getElementById('total-first-type-ship-count').innerText = totalShipCount;
 
+            const secondTypePorts = fishingPorts.filter(port => port.type === '第二類');
+            const totalShipCount2 = secondTypePorts.reduce((total, port) => total + port.shipCount, 0);
+            document.getElementById('total-second-type-ship-count').innerText = totalShipCount2;
+        }
         // 生成漁港列表
+        calculateTypeTotal();
         renderFishingPorts();
     </script>
 
